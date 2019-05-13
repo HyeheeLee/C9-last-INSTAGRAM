@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-3">
+      {% if profile.profile.image %}
+        <img class="rounded-circle" src="{{ profile.profile.image.url }}"></img>
+      {% else %}
+        <img class="rounded-circle" src="/media/default_profile_image.png"></img>
+      {% endif %}
+      <h1>{{ profile.username }} 
+        {% if user != profile %}
+          {% if user in profile.followers.all %}
+            <a class="btn btn-dark" href="{% url 'accounts:follow' profile.id %}">언팔로우</a>
+          {% else %}
+            <a class="btn btn-primary" href="{% url 'accounts:follow' profile.id %}">팔로우</a>
+          {% endif %}
+        {% endif %}
+      </h1>
+    </div>
+    <div class="col-9">
+      <div>
+        <strong>{{ profile.profile.nickname }}</strong>
+      </div>
+      <div>
+        {{ profile.profile.description }}
+      </div>
+    </div>
+  </div>
+  
+  {% if user == profile %}
+    <a class="btn btn-danger" href="{% url 'accounts:delete' %}">회원탈퇴</a>
+    <a class="btn btn-info" href="{% url 'accounts:change_profile' %}">프로필 변경</a>
+  {% endif %}
+  
+  
+  <div class="row">
+    <!-- 해당 유저가 작성한 모든 post를 보여줌 -->
+    {% for post in profile.post_set.all %} 
+      <div class="col-4">
+        <img src="{{ post.image.url }}" class="image-fluid" alt="...">
+      </div>
+    {% endfor %}
+    
+  </div>
+{% endblock %}

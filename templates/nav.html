@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'posts:list' %}">
+    <i class="fab fa-instagram"></i>
+    Instagram
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <!-- 나머지 요소들 오른쪽으로 붙이자 ml-auto -->
+    <ul class="navbar-nav  ml-auto">
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'posts:create' %}">New post</a>
+        </li>
+        <li class="nav-item">
+          <!-- main 문지기가 가지고 있는거라 -->
+          <a class="nav-link" href="{% url 'profile' user.username %}">{{ user.username }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:logout' %}">Log out</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:signup' %}">Sign up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:login' %}">Log in</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

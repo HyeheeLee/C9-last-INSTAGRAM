@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block body %}
+  <h1>프로필 수정</h1>
+  <!--사진 업로드 기능이 있을 때는 enctype 붙여줘야 한다.-->
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form profile_form %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">수정하기</button>
+    {% endbuttons %}
+  </form>
+{% endblock %}
